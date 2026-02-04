@@ -31,6 +31,19 @@ pipeline {
             }
          }
       }
+      stage('Docker Push') {
+         steps {
+            echo "RUNNING IN $WORKSPACE"
+            dir("$WORKSPACE/azure-vote"){
+               script {
+                  docker.withRegistry('', 'Dockerhub') {
+                     def image = docker.build("fahmidovi/jenkins:v1")
+                     image.push()
+                  }
+               }
+            }
+         }
+      }
    }
    post {
          always {
