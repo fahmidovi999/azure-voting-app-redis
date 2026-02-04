@@ -43,7 +43,7 @@ pipeline {
       stage ('Run Clair Scan') {
          steps {
             sh(script: 'docker pull fahmidovi/jenkins:v1')
-            sh(script: 'clairctl analyze fahmidovi/jenkins:v1 --clair=http://localhost:6060')
+            sh(script: 'clairctl report fahmidovi/jenkins:v1')
          }
       }
 
