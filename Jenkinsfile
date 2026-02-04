@@ -19,8 +19,14 @@ pipeline {
       }
       stage('Run Tests') {
          steps {
-            sh(script: 'pytest ./tests/test_sample.py')
+            sh '''
+               python3 -m venv venv
+               . venv/bin/activate
+               pip install pytest
+               pytest ./tests/test_sample.py
+            '''
          }
+         
          post {
             success {
                echo 'Tests Passed! :)'
