@@ -19,12 +19,7 @@ pipeline {
       }
       stage('Run Tests') {
          steps {
-            sh '''
-               python3 -m venv venv
-               . venv/bin/activate
-               pip install pytest
-               pytest ./tests/test_sample.py
-            '''
+            sh(script: 'docker compose exec -T azure-vote-front pytest ./tests/test_sample.py')
          }
          
          post {
