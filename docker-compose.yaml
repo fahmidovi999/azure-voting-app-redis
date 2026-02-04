@@ -9,7 +9,9 @@ services:
         - "6379:6379"
 
   azure-vote-front:
-    build: ./azure-vote
+    build:
+      context: .
+      dockerfile: ./azure-vote/Dockerfile
     image: mcr.microsoft.com/azuredocs/azure-vote-front:v1
     container_name: azure-vote-front
     environment:
