@@ -37,7 +37,7 @@ pipeline {
             sh(script: 'docker rm -f clair')
             sh(script: 'docker network create clair-net 2>/dev/null || true')
             sh(script: 'docker run -d --name postgres --network clair-net -e POSTGRES_PASSWORD=clair -e POSTGRES_USER=clair -e POSTGRES_DB=clair postgres:14')
-            sh(script: 'docker run -d --name clair --network clair-net -p 6060:6060 -p 6061:6061 quay.io/projectquay/clair:latest')
+            sh(script: 'docker run -d --name clair --network clair-net -p 6060:6060 -p 6061:6061 quay.io/projectquay/clair:nightly-2026-01-31')
          }
       }
       stage ('Run Clair Scan') {
