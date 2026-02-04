@@ -30,10 +30,10 @@ pipeline {
             }
          }
       }
-      post {
+   }
+   post {
          always {
             sh(script: 'docker compose down')
          }
       }
-   }
 }
