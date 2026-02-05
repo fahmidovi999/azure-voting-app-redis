@@ -31,20 +31,42 @@ pipeline {
             }
          }
       }
-      stage('Run Grype') {
-         steps {
-            grypeScan autoInstall: false, repName: 'grypeReport_${JOB_NAME}_${BUILD_NUMBER}.txt', scanDest: 'registry:fahmidovi/jenkins:v1'
-         }
-         post {
-            always {
-                  recordIssues(
-                     tools: [grype()],
-                     aggragatingResults: true,
-                  )
+      stage ('Parallel')
+      {
+         parallel
+         {
+            stage('Snyk Scan')
+            {
+               steps
+               {
+                  echo "Running from parallel 1"
                }
+            }
+            stage('Trivy Scan')
+            {
+               steps
+               {
+                  echo "Running from parallel 2"
+               }
+              
             }
          }
       }
+
+      // stage('Run Grype') {
+      //    steps {
+      //       grypeScan autoInstall: false, repName: 'grypeReport_${JOB_NAME}_${BUILD_NUMBER}.txt', scanDest: 'registry:fahmidovi/jenkins:v1'
+      //    }
+      //    post {
+      //       always {
+      //             recordIssues(
+      //                tools: [grype()],
+      //                aggragatingResults: true,
+      //             )
+      //          }
+      //       }
+      //    }
+      // }
 
       // stage('Docker Push') {
       //    steps {
